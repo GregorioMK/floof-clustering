@@ -80,11 +80,6 @@ def logout():
 
 # ===== JIKA BELUM LOGIN - TAMPILKAN HALAMAN LOGIN =====
 if not st.session_state.logged_in:
-    
-    st.set_page_config(
-    page_title="LOGIN",
-    page_icon="🔐",
-    )
 
     # Hide sidebar saat belum login
     hide_sidebar_style = """
@@ -138,10 +133,6 @@ if not st.session_state.logged_in:
 
 # ===== JIKA SUDAH LOGIN - TAMPILKAN BERANDA =====
 else:
-    st.set_page_config(
-    page_title="BERANDA",
-    page_icon="🏠",
-    )
     # Sidebar untuk logout dan menu
     with st.sidebar:
         st.title("Menu")
