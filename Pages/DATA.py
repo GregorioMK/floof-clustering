@@ -322,7 +322,7 @@ with st._main:
                                         # Karena cache adalah global di Streamlit, cukup clear langsung
                                         try:
                                             # ✅ Clear cache untuk load_data dan get_data_hash
-                                            from Pages import CLUSTERING  # Sesuaikan dengan struktur folder Anda
+                                            from pages import CLUSTERING  # Sesuaikan dengan struktur folder Anda
                                             
                                             # Clear cache functions
                                             if hasattr(CLUSTERING, 'load_data'):
