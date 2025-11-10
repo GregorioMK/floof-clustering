@@ -123,6 +123,16 @@ if not st.session_state.logged_in:
 # ===== HALAMAN BERANDA (SETELAH LOGIN) =====
 else:
     # Sidebar dengan logout
+    st.markdown("""
+        <style>
+            [data-testid="stSidebarNav"] {display: block !important;}
+        </style>
+    """, unsafe_allow_html=True)
+    #
+    # ▲▲▲ BATAS AKHIR BLOK TAMBAHAN ▲▲▲
+    # -----------------------------------------------------------------
+
+    # Sidebar dengan logout (Kode kamu yang sudah ada)
     with st.sidebar:
         st.write(f"👤 **User:** {st.session_state.username}")
         st.write(f"🔑 **Role:** {st.session_state.user_type.capitalize()}")
@@ -131,7 +141,7 @@ else:
         if st.button("🚪 Logout", use_container_width=True):
             logout()
     
-    # Konten Beranda
+    # Konten Beranda (Kode kamu yang sudah ada)
     st.title("🌊 Sistem Clustering Data Banjir")
     
     if st.session_state.user_type == "admin":
