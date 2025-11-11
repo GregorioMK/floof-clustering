@@ -38,20 +38,14 @@ if 'last_params' not in st.session_state:
     st.session_state.last_params = None
 
 # ===== LOAD DATABASE CONFIGURATION FROM secrets.toml =====
-try:
-    secrets = toml.load(".streamlit/secrets.toml")
-    db_host = secrets["database"]["db_host"]
-    db_port = secrets["database"]["db_port"]
-    db_name = secrets["database"]["db_name"]
-    db_user = secrets["database"]["db_user"]
-    db_password = secrets["database"]["db_password"]
-except FileNotFoundError:
-    st.error("❌ File secrets.toml tidak ditemukan di folder .streamlit/")
-    st.info("💡 Pastikan file secrets.toml ada di .streamlit/secrets.toml")
-    st.stop()
-except KeyError as e:
-    st.error(f"❌ Konfigurasi database tidak lengkap: {e}")
-    st.stop()
+
+secrets = toml.load(".streamlit/secrets.toml")
+db_host = secrets["database"]["db_host"]
+db_port = secrets["database"]["db_port"]
+db_name = secrets["database"]["db_name"]
+db_user = secrets["database"]["db_user"]
+db_password = secrets["database"]["db_password"]
+
 
 # ===== FUNGSI UNTUK LABELING CLUSTER =====
 CLUSTER_LABELS = {
@@ -166,7 +160,7 @@ def plot_silhouette_analysis(X_scaled, cluster_labels, n_clusters):
     return fig
 
 
-# ✅ FUNGSI BARU: Get hash dari database untuk cache-busting
+#Get hash dari database untuk cache-busting
 @st.cache_data(ttl=60, show_spinner=False)  # Cache hash hanya 1 menit
 def get_data_hash(tipe, tahun_selected):
     """
@@ -242,7 +236,6 @@ def get_data_hash(tipe, tahun_selected):
         return fallback_hash
 
 
-# ✅ FUNGSI LOAD DATA - DIPERBAIKI dengan data_hash
 @st.cache_data(ttl=600, show_spinner=False)  # Cache 10 menit
 def load_data(tipe, tahun_selected, data_hash):
     """
@@ -250,16 +243,13 @@ def load_data(tipe, tahun_selected, data_hash):
     Parameter data_hash: Hash dari checksum database untuk cache-busting otomatis
     """
     # Baca konfigurasi database dari secrets.toml
-    try:
-        secrets = toml.load(".streamlit/secrets.toml")
-        db_host = secrets["database"]["db_host"]
-        db_port = secrets["database"]["db_port"]
-        db_name = secrets["database"]["db_name"]
-        db_user = secrets["database"]["db_user"]
-        db_password = secrets["database"]["db_password"]
-    except (FileNotFoundError, KeyError) as e:
-        st.error(f"❌ Error membaca konfigurasi database: {e}")
-        return None
+    secrets = toml.load(".streamlit/secrets.toml")
+    db_host = secrets["database"]["db_host"]
+    db_port = secrets["database"]["db_port"]
+    db_name = secrets["database"]["db_name"]
+    db_user = secrets["database"]["db_user"]
+    db_password = secrets["database"]["db_password"]
+    
     
     connection_string = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
     engine = create_engine(connection_string)
@@ -270,7 +260,6 @@ def load_data(tipe, tahun_selected, data_hash):
             st.error("Silakan pilih tahun terlebih dahulu.")
             return None
         table_name = f"kejadian_{tahun_selected}"
-        # ✅ PENTING: Tambahkan ORDER BY untuk konsistensi
         query = f"SELECT * FROM {table_name} ORDER BY kecamatan ASC"
         
     else:
@@ -346,7 +335,7 @@ def show_footer():
     """, unsafe_allow_html=True)
 
 
-# --- Mulai UI ---
+# Pemetaan
 
 geojson_path = os.path.join("KECAMATAN.geojson")
 

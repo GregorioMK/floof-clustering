@@ -315,7 +315,6 @@ with st._main:
                                     if updated_count > 0:
                                         st.balloons()
                                         
-                                        # ✅ CLEAR CACHE OTOMATIS (tanpa session state)
                                         st.info(f"💡 Membersihkan cache untuk tahun {upload_tahun} dan Total (Agregasi)...")
                                         
                                         # Import fungsi dari CLUSTERING.py

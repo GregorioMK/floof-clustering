@@ -191,7 +191,7 @@ else:
     - **MinMax Scaler**: Normalisasi data untuk meningkatkan akurasi clustering
     - **PCA (Principal Component Analysis)**: Reduksi dimensi untuk visualisasi data
     - **Silhouette Score**: Evaluasi kualitas hasil clustering
-    - **PostgreSQL**: Database untuk penyimpanan data
+    - **Neon**: Database postgre serverless untuk penyimpanan data
     - **Streamlit**: Framework untuk antarmuka aplikasi web
     
     #### 📊 Fitur Utama
