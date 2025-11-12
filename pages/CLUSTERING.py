@@ -477,7 +477,7 @@ if metode == "K-Medoids":
     k = st.slider(
         "Jumlah Cluster (k)",
         min_value=2,
-        max_value=10,
+        max_value=7,
         value=3,
         help="Tentukan jumlah cluster yang diinginkan"
     )
