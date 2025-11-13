@@ -19,12 +19,11 @@ try:
     if "connection_string" in secrets["database"]:
         # Menggunakan connection string langsung
         connection_string = secrets["database"]["connection_string"]
-        # Parse connection string untuk mendapatkan komponen individual
         from urllib.parse import urlparse
         parsed = urlparse(connection_string)
         db_host = parsed.hostname
         db_port = str(parsed.port) if parsed.port else "5432"
-        db_name = parsed.path[1:]  # Remove leading '/'
+        db_name = parsed.path[1:]  
         db_user = parsed.username
         db_password = parsed.password
     else:
@@ -78,7 +77,7 @@ def logout():
     st.session_state.username = None
     st.rerun()
 
-# ===== JIKA BELUM LOGIN - TAMPILKAN HALAMAN LOGIN =====
+# condition jika belum login
 if not st.session_state.logged_in:
     
     st.set_page_config(

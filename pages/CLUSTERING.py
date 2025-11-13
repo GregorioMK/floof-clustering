@@ -49,12 +49,12 @@ db_password = secrets["database"]["db_password"]
 
 # ===== FUNGSI UNTUK LABELING CLUSTER =====
 CLUSTER_LABELS = {
-    2: ['Rendah', 'Tinggi'],
-    3: ['Rendah', 'Sedang', 'Tinggi'],
-    4: ['Sangat Rendah', 'Rendah', 'Sedang', 'Tinggi'],
-    5: ['Sangat Rendah', 'Rendah', 'Sedang', 'Tinggi', 'Sangat Tinggi'],
-    6: ['Sangat Rendah', 'Rendah', 'Cukup Rendah', 'Sedang', 'Tinggi', 'Sangat Tinggi'],
-    7: ['Sangat Rendah', 'Rendah', 'Cukup Rendah', 'Sedang', 'Cukup Tinggi', 'Tinggi', 'Sangat Tinggi'],
+    2: ['Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Tinggi'],
+    3: ['Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Sedang', 'Tingkat Kerawanan Tinggi'],
+    4: ['Tingkat Kerawanan Sangat Rendah', 'Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Sedang', 'Tingkat Kerawanan Tinggi'],
+    5: ['STingkat Kerawanan sangat Rendah', 'Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Sedang', 'Tingkat Kerawanan Tinggi', 'Tingkat Kerawanan Sangat Tinggi'],
+    6: ['Tingkat Kerawanan Sangat Rendah', 'Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Cukup Rendah', 'Tingkat Kerawanan Sedang', 'Tingkat Kerawanan Tinggi', 'Tingkat Kerawanan Sangat Tinggi'],
+    7: ['Tingkat Kerawanan Sangat Rendah', 'Tingkat Kerawanan Rendah', 'Tingkat Kerawanan Cukup Rendah', 'Tingkat Kerawanan Sedang', 'Tingkat Kerawanan Cukup Tinggi', 'Tingkat Kerawanan Tinggi', 'Tingkat Kerawanan Sangat Tinggi'],
 }
 
 def get_cluster_labels(n_clusters):
@@ -409,7 +409,7 @@ def create_cluster_map(df, geojson_data, metode_name):
         cluster = cluster_dict.get(kecamatan_name, -1)
         
         if cluster == -1:
-            color = '#cccccc'
+            color = '#333333'
         else:
             color = colors[cluster % len(colors)]
         
@@ -463,7 +463,7 @@ def create_cluster_map(df, geojson_data, metode_name):
             color = colors[cluster % len(colors)]
             legend_html += f'<p style="margin: 3px 0;"><i style="background:{color}; width: 18px; height: 18px; display: inline-block; margin-right: 5px;"></i>{kategori} ({count})</p>'
         else:
-            legend_html += f'<p style="margin: 3px 0;"><i style="background:#cccccc; width: 18px; height: 18px; display: inline-block; margin-right: 5px;"></i>{kategori} ({count})</p>'
+            legend_html += f'<p style="margin: 3px 0;"><i style="background:#333333; width: 18px; height: 18px; display: inline-block; margin-right: 5px;"></i>{kategori} ({count})</p>'
     
     legend_html += '</div>'
     m.get_root().html.add_child(folium.Element(legend_html))
@@ -820,7 +820,7 @@ if st.session_state.clustering_result is not None:
             ax.scatter(
                 X_pca[mask, 0], 
                 X_pca[mask, 1], 
-                c='#cccccc', 
+                c='#333333', 
                 s=100, 
                 alpha=0.6, 
                 edgecolors='black',
